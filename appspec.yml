@@ -5,4 +5,4 @@ Resources:
       Properties:
         Name: your-lambda-function-name
         Alias: live
-        CurrentVersion: 1
+        CurrentVersion: version-number
