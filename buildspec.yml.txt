@@ -2,19 +2,14 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 14
     commands:
-      - echo Installing packages...
+      - echo Installing dependencies...
       - npm install
   build:
     commands:
-      - echo Building project...
+      - echo Build started...
       - npm run build
-  post_build:
-    commands:
-      - echo Build done!
+
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
