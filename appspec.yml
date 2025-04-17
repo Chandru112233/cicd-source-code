@@ -1,11 +1,11 @@
 version: 0.0
 Resources:
-  - lambdaFunction:
+  - MyLambdaFunction:
       Type: AWS::Lambda::Function
       Properties:
         Name: your-lambda-function-name
         Alias: live
         CurrentVersion:
           Fn::GetAtt:
-            - lambdaFunction
+            - MyLambdaFunction
             - Version
