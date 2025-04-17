@@ -1,11 +1,9 @@
 version: 0.0
-Resources:
-  - MyLambdaFunction:
-      Type: AWS::Lambda::Function
-      Properties:
-        Name: your-lambda-function-name
-        Alias: live
-        CurrentVersion:
-          Fn::GetAtt:
-            - MyLambdaFunction
-            - Version
+resources:
+  - myLambdaFunction:                # this is just an identifier—can be anything
+      type: AWS::Lambda::Function
+      properties:
+        name: "your-lambda-function-name"   # ← EXACTLY your function’s name
+        alias: "live"                        # ← make sure this alias exists!
+        currentversion: "1"                  # ← the version the alias currently points to
+        targetversion: "2"                   # ← the version you want to shift traffic to
