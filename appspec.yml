@@ -3,8 +3,8 @@ Resources:
   - lambdaFunction:
       Type: AWS::Lambda::Function
       Properties:
-        Name: my-real-lambda-function-name  # <-- put your actual function name here
-        Alias: live                         # <-- this alias MUST already exist
+        Name: your-lambda-function-name
+        Alias: live
         CurrentVersion:
           Fn::GetAtt:
             - lambdaFunction
