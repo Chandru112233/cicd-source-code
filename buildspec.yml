@@ -3,13 +3,33 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing dependencies...
-      - npm install
+      - echo Installing dependencies…
+      - npm install                          # or pip, go, etc
   build:
     commands:
-      - echo Build started...
-      - npm run build
+      - echo Packaging deployment bundle…
+      - zip -r deployment.zip index.js node_modules
+      - echo Publishing new Lambda version…
+      - |
+        NEW_VER=$(aws lambda publish-version \
+          --function-name your-lambda-function-name \
+          --query Version --output text)
+      - echo "Published version ${NEW_VER}"
+      - echo Generating AppSpec for version ${NEW_VER}…
+      - |
+        cat > appspec.yml <<EOF
+        version: 0.0
+        resources:
+          - lambdaFunction:
+              type: AWS::Lambda::Function
+              properties:
+                name: "your-lambda-function-name"
+                alias: "live"
+                currentversion: "1"        # the alias’s current version (must already exist)
+                targetversion: "${NEW_VER}"
+        EOF
 
 artifacts:
   files:
-    - '**/*' 
+    - deployment.zip
+    - appspec.yml
